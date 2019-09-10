@@ -7,11 +7,11 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Mf\FeedYaNews\Writer\Renderer;
+namespace Mf\FeedYaTurbo\Writer\Renderer;
 
 use DOMDocument;
 use DOMElement;
-use Mf\FeedYaNews\Writer;
+use Mf\FeedYaTurbo\Writer;
 
 /**
 */
@@ -211,7 +211,7 @@ class AbstractRenderer
     }
 
     /**
-     * Load extensions from Mf\FeedYaNews\Writer\Writer
+     * Load extensions from Mf\FeedYaTurbo\Writer\Writer
      *
      * @return void
      */

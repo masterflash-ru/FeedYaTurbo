@@ -7,27 +7,12 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Mf\FeedYaNews\Writer;
+namespace Mf\FeedYaTurbo\Writer;
 
 /**
 */
 class Writer
 {
-    /**
-     * Namespace constants
-     */
-    /*const NAMESPACE_ATOM_03  = 'http://purl.org/atom/ns#';
-    const NAMESPACE_ATOM_10  = 'http://www.w3.org/2005/Atom';
-    const NAMESPACE_RDF      = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#';
-    const NAMESPACE_RSS_090  = 'http://my.netscape.com/rdf/simple/0.9/';
-    const NAMESPACE_RSS_10   = 'http://purl.org/rss/1.0/';*/
-
-    /**
-     * Feed type constants
-     */
-    //const TYPE_ANY              = 'any';
-   // const TYPE_RSS_20           = 'rss-20';
-    //const TYPE_RSS_ANY          = 'rss';
 
     /**
      * @var ExtensionManagerInterface
@@ -170,7 +155,7 @@ class Writer
      */
     public static function registerCoreExtensions()
     {
-        static::registerExtension('Content');
+        static::registerExtension('Turbo');
     }
 
     /**

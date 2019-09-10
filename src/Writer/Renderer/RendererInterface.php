@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Mf\FeedYaNews\Writer\Renderer;
+namespace Mf\FeedYaTurbo\Writer\Renderer;
 
 use DOMDocument;
 use DOMElement;

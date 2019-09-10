@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Mf\FeedYaNews\Writer;
+namespace Mf\FeedYaTurbo\Writer;
 
 use Countable;
 use Iterator;
@@ -31,11 +31,11 @@ class Feed extends AbstractFeed implements Iterator, Countable
     protected $entriesKey = 0;
 
     /**
-     * Creates a new Mf\FeedYaNews\Writer\Entry data container for use. This is NOT
+     * Creates a new Mf\FeedYaTurbo\Writer\Entry data container for use. This is NOT
      * added to the current feed automatically, but is necessary to create a
      * container with some initial values preset based on the current feed data.
      *
-     * @return \Mf\FeedYaNews\Writer\Entry
+     * @return \Mf\FeedYaTurbo\Writer\Entry
      */
     public function createEntry()
     {
@@ -48,7 +48,7 @@ class Feed extends AbstractFeed implements Iterator, Countable
     }
 
     /**
-     * Appends a Mf\FeedYaNews\Writer\Deleted object representing a new entry tombstone
+     * Appends a Mf\FeedYaTurbo\Writer\Deleted object representing a new entry tombstone
      * to the feed data container's internal group of entries.
      *
      * @param Deleted $deleted
@@ -60,7 +60,7 @@ class Feed extends AbstractFeed implements Iterator, Countable
     }
 
     /**
-     * Creates a new Mf\FeedYaNews\Writer\Deleted data container for use. This is NOT
+     * Creates a new Mf\FeedYaTurbo\Writer\Deleted data container for use. This is NOT
      * added to the current feed automatically, but is necessary to create a
      * container with some initial values preset based on the current feed data.
      *
@@ -77,7 +77,7 @@ class Feed extends AbstractFeed implements Iterator, Countable
     }
 
     /**
-     * Appends a Mf\FeedYaNews\Writer\Entry object representing a new entry/item
+     * Appends a Mf\FeedYaTurbo\Writer\Entry object representing a new entry/item
      * the feed data container's internal group of entries.
      *
      * @param Entry $entry
@@ -227,7 +227,7 @@ class Feed extends AbstractFeed implements Iterator, Countable
         $type="rss";
         $this->setType(strtolower($type));
         $type = ucfirst($this->getType());
-        $renderClass = 'Mf\\FeedYaNews\\Writer\\Renderer\\Feed\\' . $type;
+        $renderClass = 'Mf\\FeedYaTurbo\\Writer\\Renderer\\Feed\\' . $type;
         $renderer = new $renderClass($this);
         if ($ignoreExceptions) {
             $renderer->ignoreExceptions();

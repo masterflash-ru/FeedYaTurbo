@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Mf\FeedYaNews\Writer\Exception;
+namespace Mf\FeedYaTurbo\Writer\Exception;
 
 /**
  * Feed exceptions

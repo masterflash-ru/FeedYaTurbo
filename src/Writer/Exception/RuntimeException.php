@@ -7,9 +7,9 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Mf\FeedYaNews\Writer\Exception;
+namespace Mf\FeedYaTurbo\Writer\Exception;
 
-use Mf\FeedYaNews\Exception;
+use Mf\FeedYaTurbo\Exception;
 
 class RuntimeException extends Exception\RuntimeException implements ExceptionInterface
 {

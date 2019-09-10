@@ -7,11 +7,11 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Mf\FeedYaNews\Writer;
+namespace Mf\FeedYaTurbo\Writer;
 
 use DateTime;
 use DateTimeInterface;
-use Mf\FeedYaNews\Uri;
+use Mf\FeedYaTurbo\Uri;
 
 /**
 */
@@ -130,6 +130,31 @@ class Entry
     }
 
     /**
+     * @return string|null
+     */
+    public function getSource()
+    {
+        if (! array_key_exists('source', $this->data)) {
+            return;
+        }
+        return $this->data['source'];
+    }
+
+    /**
+     */
+    public function setSource($link)
+    {
+        if (empty($link) || ! is_string($link) || ! Uri::factory($link)->isValid()) {
+            throw new Exception\InvalidArgumentException(
+                'Invalid parameter: parameter must be a non-empty string and valid URI/IRI'
+            );
+        }
+        $this->data['source'] = $link;
+
+        return $this;
+    }
+
+    /**
      * Get the feed character encoding
      *
      * @return string|null
@@ -140,44 +165,6 @@ class Entry
             return 'UTF-8';
         }
         return $this->data['encoding'];
-    }
-
-    /*установить жанр канала*/
-    public function setGenre($genre)
-    {
-        if (empty($genre) || ! in_array($genre,["lenta","message","article","interview"])) {
-            throw new Exception\InvalidArgumentException('Не верный параметр Genre, должно быть одно из значений:  lenta,message,article,interview');
-        }
-        $this->data['genre'] = $genre;
-
-        return $this;
-    }
-    
-    /*получить жанр*/
-    public function getGenre()
-    {
-        if (! array_key_exists('genre', $this->data)) {
-            return ;
-        }
-        return $this->data['genre'];
-    }
-    
-    
-    /**
-     * Set the copyright entry
-     *
-     * @param string $copyright
-     * @throws Exception\InvalidArgumentException
-     * @return Entry
-     */
-    public function setCopyright($copyright)
-    {
-        if (empty($copyright) || ! is_string($copyright)) {
-            throw new Exception\InvalidArgumentException('Invalid parameter: parameter must be a non-empty string');
-        }
-        $this->data['copyright'] = $copyright;
-
-        return $this;
     }
 
     /**
@@ -247,22 +234,6 @@ class Entry
         return $this;
     }
 
-    /**
-     * Set the feed description
-     *
-     * @param string $description
-     * @throws Exception\InvalidArgumentException
-     * @return Entry
-     */
-    public function setDescription($description)
-    {
-        if (empty($description) || ! is_string($description)) {
-            throw new Exception\InvalidArgumentException('Invalid parameter: parameter must be a non-empty string');
-        }
-        $this->data['description'] = $description;
-
-        return $this;
-    }
 
     /**
      * Set the feed ID
@@ -270,7 +241,7 @@ class Entry
      * @param string $id
      * @throws Exception\InvalidArgumentException
      * @return Entry
-     */
+     * /
     public function setId($id)
     {
         if (empty($id) || ! is_string($id)) {
@@ -301,47 +272,7 @@ class Entry
     }
 
     
-    public function setPdaLink($link)
-    {
-        if (empty($link) || ! is_string($link) || ! Uri::factory($link)->isValid()) {
-            throw new Exception\InvalidArgumentException(
-                'Invalid parameter: parameter must be a non-empty string and valid URI/IRI'
-            );
-        }
-        $this->data['pdalink'] = $link;
 
-        return $this;
-    }
-    
-    public function setAmpLink($link)
-    {
-        if (empty($link) || ! is_string($link) || ! Uri::factory($link)->isValid()) {
-            throw new Exception\InvalidArgumentException(
-                'Invalid parameter: parameter must be a non-empty string and valid URI/IRI'
-            );
-        }
-        $this->data['amplink'] = $link;
-
-        return $this;
-    }
-    
-
-    /**
-     * Set the feed title
-     *
-     * @param string $title
-     * @throws Exception\InvalidArgumentException
-     * @return Entry
-     */
-    public function setTitle($title)
-    {
-        if ((empty($title) && ! is_numeric($title)) || ! is_string($title)) {
-            throw new Exception\InvalidArgumentException('Invalid parameter: parameter must be a non-empty string');
-        }
-        $this->data['title'] = $title;
-
-        return $this;
-    }
 
     /**
      * Get an array with feed authors
@@ -369,18 +300,6 @@ class Entry
         return $this->data['content'];
     }
 
-    /**
-     * Get the entry copyright information
-     *
-     * @return string
-     */
-    public function getCopyright()
-    {
-        if (! array_key_exists('copyright', $this->data)) {
-            return;
-        }
-        return $this->data['copyright'];
-    }
 
     /**
      * Get the entry creation date
@@ -408,18 +327,6 @@ class Entry
         return $this->data['dateModified'];
     }
 
-    /**
-     * Get the entry description
-     *
-     * @return string
-     */
-    public function getDescription()
-    {
-        if (! array_key_exists('description', $this->data)) {
-            return;
-        }
-        return $this->data['description'];
-    }
 
     /**
      * Get the entry ID
@@ -448,22 +355,7 @@ class Entry
     }
 
     
-    public function getPdaLink()
-    {
-        if (! array_key_exists('pdalink', $this->data)) {
-            return;
-        }
-        return $this->data['pdalink'];
-    }
-    
-    public function getAmpLink()
-    {
-        if (! array_key_exists('amplink', $this->data)) {
-            return;
-        }
-        return $this->data['amplink'];
-    }
-    
+
 
     /**
      * Get all links
@@ -552,41 +444,7 @@ class Entry
         return $this->data['categories'];
     }
 
-    /**
-     * Adds an enclosure to the entry. The array parameter may contain the
-     * keys 'uri', 'type' and 'length'. Only 'uri' is required for Atom, though the
-     * others must also be provided or RSS rendering (where they are required)
-     * will throw an Exception.
-     *
-     * @param array $enclosure
-     * @throws Exception\InvalidArgumentException
-     * @return Entry
-     */
-    public function addEnclosure(array $enclosure)
-    {
-        if (! isset($enclosure['uri'])) {
-            throw new Exception\InvalidArgumentException('Enclosure "uri" is not set');
-        }
-        if (! Uri::factory($enclosure['uri'])->isValid()) {
-            throw new Exception\InvalidArgumentException('Enclosure "uri" is not a valid URI/IRI');
-        }
-        $this->data['enclosure'][] = $enclosure;
 
-        return $this;
-    }
-
-    /**
-     * Retrieve an array of all enclosures to be added to entry.
-     *
-     * @return array
-     */
-    public function getEnclosure()
-    {
-        if (! array_key_exists('enclosure', $this->data)) {
-            return;
-        }
-        return $this->data['enclosure'];
-    }
 
     /**
      * Unset a specific data point
@@ -671,49 +529,10 @@ class Entry
             . ' does not exist and could not be located on a registered Extension');
     }
 
-    /**
-     * Creates a new Mf\FeedYaNews\Writer\Source data container for use. This is NOT
-     * added to the current feed automatically, but is necessary to create a
-     * container with some initial values preset based on the current feed data.
-     *
-     * @return Source
-     */
-    public function createSource()
-    {
-        $source = new Source;
-        if ($this->getEncoding()) {
-            $source->setEncoding($this->getEncoding());
-        }
-        $source->setType($this->getType());
-        return $source;
-    }
+
 
     /**
-     * Appends a Mf\FeedYaNews\Writer\Entry object representing a new entry/item
-     * the feed data container's internal group of entries.
-     *
-     * @param Source $source
-     * @return Entry
-     */
-    public function setSource(Source $source)
-    {
-        $this->data['source'] = $source;
-        return $this;
-    }
-
-    /**
-     * @return Source
-     */
-    public function getSource()
-    {
-        if (isset($this->data['source'])) {
-            return $this->data['source'];
-        }
-        return;
-    }
-
-    /**
-     * Load extensions from Mf\FeedYaNews\Writer\Writer
+     * Load extensions from Mf\FeedYaTurbo\Writer\Writer
      *
      * @return void
      */

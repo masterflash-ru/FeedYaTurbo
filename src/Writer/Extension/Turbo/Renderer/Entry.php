@@ -1,17 +1,12 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Mf\FeedYaNews\Writer\Extension\Content\Renderer;
+namespace Mf\FeedYaTurbo\Writer\Extension\Turbo\Renderer;
 
 use DOMDocument;
 use DOMElement;
-use Mf\FeedYaNews\Writer\Extension;
+use Mf\FeedYaTurbo\Writer\Extension;
 
 /**
 */
@@ -27,6 +22,7 @@ class Entry extends Extension\AbstractRenderer
     public function render()
     {
         $this->_setContent($this->dom, $this->base);
+        $this->_setSource($this->dom, $this->base);
         if ($this->called) {
             $this->_appendNamespaces();
         }
@@ -48,18 +44,33 @@ class Entry extends Extension\AbstractRenderer
         if (! $content) {
             return;
         }
-        $element = $dom->createElement('yandex:full-text');
+        $element = $dom->createElement('turbo:content');
         $root->appendChild($element);
         $cdata = $dom->createCDATASection($content);
         $element->appendChild($cdata);
         $this->called = true;
     }
 
+    /**
+     * @return void
+     */
+    protected function _setSource(DOMDocument $dom, DOMElement $root)
+    {
+        $source = $this->getDataContainer()->getSource();
+        if (empty($source)) {
+            return;
+        }
+        $element = $dom->createElement('turbo:source',$source);
+        $root->appendChild($element);
+        $this->called = true;
+    }
+
+    
     protected function _appendNamespaces()
     {
         $this->getRootElement()->setAttribute(
-            'xmlns:yandex',
-            'http://news.yandex.ru'
+            'xmlns:turbo',
+            'http://turbo.yandex.ru'
         );
     }
 

@@ -7,14 +7,15 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Mf\FeedYaNews\Writer;
+namespace Mf\FeedYaTurbo\Writer;
 
-use Mf\FeedYaNews\Writer\Exception\InvalidArgumentException;
+use Mf\FeedYaTurbo\Writer\Exception\InvalidArgumentException;
 
 class StandaloneExtensionManager implements ExtensionManagerInterface
 {
     private $extensions = [
-        'Content\Renderer\Entry'       => Extension\Content\Renderer\Entry::class,
+        'Turbo\Renderer\Feed'       => Extension\Turbo\Renderer\Feed::class,
+        'Turbo\Renderer\Entry'       => Extension\Turbo\Renderer\Entry::class,
     ];
 
     /**
