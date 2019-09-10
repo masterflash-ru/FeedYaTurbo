@@ -1,0 +1,30 @@
+{
+    "name": "masterflash-ru/feed-yaturbo",
+    "description": "генератор ленты Яндекс турбо страниц",
+    "license": "BSD-3-Clause",
+    "keywords": [
+        "zf3",
+        "zendframework",
+        "RSS For Yandex Turbo"
+    ],
+    "homepage": "https://masterflash.ru/",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+   "require": {
+        "php": "^7.1",
+        "ext-dom": "*",
+        "ext-libxml": "*",
+        "zendframework/zend-escaper": "^2.5.2",
+        "zendframework/zend-validator": "^2.10.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mf\\FeedYaTurbo\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Mf\\FeedYaTurbo\\": "src/"
+        }
+    },
+}
