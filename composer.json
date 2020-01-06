@@ -11,11 +11,11 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
    "require": {
-        "php": "^7.1",
+        "php": "^7.2",
         "ext-dom": "*",
         "ext-libxml": "*",
-        "zendframework/zend-escaper": "^2.5.2",
-        "zendframework/zend-validator": "^2.10.1"
+        "laminas/laminas-escaper": "^2.5.2",
+        "laminas/laminas-validator": "^2.10.1"
     },
     "autoload": {
         "psr-4": {
